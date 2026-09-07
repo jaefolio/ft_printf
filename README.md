@@ -85,9 +85,7 @@ int main(void)
 ## Resources
 
 - `man` pages for each reimplemented function
-- 42 Norminette documentation for style compliance
 - https://www.geeksforgeeks.org/c/format-specifiers-in-c/
 - https://www.geeksforgeeks.org/c/variadic-functions-in-c/
 
-**AI usage:** Claude was used to explain concepts, and point out bugs. It was not used to write
-or generate function implementations directly.
+**AI usage:** Claude was used to explain concepts, and point out bugs.
