@@ -6,7 +6,7 @@
 /*   By: jifoo <jifoo@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/17 17:51:37 by jifoo             #+#    #+#             */
-/*   Updated: 2026/08/18 20:17:12 by jifoo            ###   ########.fr       */
+/*   Updated: 2026/09/07 18:57:40 by jifoo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,11 @@ static int	is_conversion(char c)
 	return (0);
 }
 
-static void	index_updater(const char *s, int *i)
-{
-	while (s[*i] && !is_conversion(s[*i]))
-		(*i)++;
-	if (is_conversion(s[*i]) && s[*i])
-		(*i)++;
-}
-
 static int	conversion_checker(const char *s, va_list *args)
 {
 	int	i;
 
 	i = 0;
-	while (s[i] && !is_conversion(s[i]))
-		i++;
 	if (s[i] == 'c')
 		return (print_char(va_arg(*args, int)));
 	if (s[i] == 's')
@@ -69,10 +59,15 @@ static void	percent_checker(const char *s, va_list *args, int *i,
 		(*i) += 2;
 		(*output_counter)++;
 	}
-	else
+	else if (s[*i] && is_conversion(s[*i + 1]))
 	{
 		(*output_counter) += conversion_checker(&s[*i + 1], args);
-		index_updater(s, i);
+		(*i) += 2;
+	}
+	else
+	{
+		(*output_counter) += print_char('%');
+		(*i)++;
 	}
 }
 
